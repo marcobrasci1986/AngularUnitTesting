@@ -3,7 +3,12 @@ Installation:
 npm install --save-dev karma // install karma
 npm install -g karma-cli // install cli
 npm install karma-jasmine karma-chrome-launcher --save-dev //  run karma by default with Chrome
-
+npm install --save-dev karma-phantomjs-launcher
 Setup karma:
 -----------------
 karma init
+
+
+Jasmine: Javascript framework (not only AngularJs)
+Karma: Run tests in cli (supports Jasmine)
+ngMock: Makes angular testable
