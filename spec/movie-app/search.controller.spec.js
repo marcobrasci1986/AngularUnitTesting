@@ -11,12 +11,14 @@ describe("Search Controller", function () {
     var vm;
     var $location;
     var $controller;
+    var $timeout;
 
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function (_$controller_, _$location_) {
+    beforeEach(inject(function (_$controller_, _$location_, _$timeout_) {
         $controller = _$controller_;
         $location = _$location_;
+        $timeout = _$timeout_;
 
         vm = $controller('SearchController');
     }));
@@ -32,4 +34,37 @@ describe("Search Controller", function () {
         vm.search();
         expect($location.url()).toBe('');
     });
+
+    it('should be redirected after 1 second', function () {
+        vm.query = 'star wars';
+        vm.keyup();
+
+        // execute timeouts
+        $timeout.flush();
+
+        // verify that all timouts have been executed
+        expect($timeout.verifyNoPendingTasks).not.toThrow();
+        expect($location.url()).toBe('/results?q=star%20wars');
+    });
+
+    it('should cancel timeout in keydown', function () {
+        vm.query = "star wars";
+        vm.keyup();
+        vm.keyDown();
+
+        expect($timeout.verifyNoPendingTasks).not.toThrow();
+    });
+
+    it('should cancel timeout in search()', function () {
+        vm.query = "star wars";
+        vm.keyup();
+        vm.search();
+
+        expect($timeout.verifyNoPendingTasks).not.toThrow();
+    });
+
+
+
+
+
 });
