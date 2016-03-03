@@ -1,0 +1,25 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "description": "Movie App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcobrasci1986/AngularUnitTesting.git"
+  },
+  "author": "Marco Brasci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcobrasci1986/AngularUnitTesting/issues"
+  },
+  "homepage": "https://github.com/marcobrasci1986/AngularUnitTesting#readme",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.7"
+  }
+}

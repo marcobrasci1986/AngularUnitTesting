@@ -1,0 +1,9 @@
+Installation:
+-----------------
+npm install --save-dev karma // install karma
+npm install -g karma-cli // install cli
+npm install karma-jasmine karma-chrome-launcher --save-dev //  run karma by default with Chrome
+
+Setup karma:
+-----------------
+karma init
