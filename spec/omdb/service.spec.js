@@ -90,7 +90,7 @@ describe("omdb service", function () {
     var $httpBackend;
 
     // Static import
-    beforeEach(module('omdb'));
+    beforeEach(module('app.services'));
 
     beforeEach(function () {
         inject(function (_omdbApi_, _$httpBackend_) {

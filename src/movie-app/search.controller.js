@@ -1,4 +1,4 @@
-angular.module('movieApp', [])
+angular.module('movieApp')
     .controller('SearchController', function ($location) {
         var vm = this;
 

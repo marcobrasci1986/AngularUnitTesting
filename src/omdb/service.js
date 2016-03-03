@@ -1,4 +1,4 @@
-var app = angular.module('omdb', []);
+var app = angular.module('app.services', []);
 
 app.factory('omdbApi', function ($http, $q) {
     var service = {};
@@ -17,11 +17,15 @@ app.factory('omdbApi', function ($http, $q) {
     }
 
     service.search = function (query) {
-        return httpPromise(baseUrl + 's=' + encodeURIComponent(query));
+        var url = baseUrl + 's=' + encodeURIComponent(query);
+        console.log('Url %s', url);
+        return httpPromise(url);
     };
 
     service.find = function (id) {
-        return httpPromise(baseUrl + 'i=' + id);
+        var url = baseUrl + 'i=' + id;
+        console.log('Url %s', url);
+        return httpPromise(url);
     };
 
 
