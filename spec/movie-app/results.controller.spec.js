@@ -28,6 +28,7 @@ describe("Results Controller", function () {
         ]
     };
 
+    // static import
     beforeEach(module('app.services'));
     beforeEach(module('movieApp'));
 
@@ -37,12 +38,13 @@ describe("Results Controller", function () {
         $rootScope = _$rootScope_;
         $location = _$location_;
         omdbApi = _omdbApi_;
+
     }));
 
     it("should load search results", function () {
         spyOn(omdbApi, 'search').and.callFake(function () {
             var deferred = $q.defer();
-            deferred.resolve(results);
+            deferred.resolve(results); // mocked data
             return deferred.promise;
         });
 
@@ -50,6 +52,7 @@ describe("Results Controller", function () {
         vm = $controller('ResultsController');
         $rootScope.$apply();
 
+        // expectations
         expect(vm.results[0].Title).toBe(results.Search[0].Title);
         expect(vm.results[1].Title).toBe(results.Search[1].Title);
         expect(vm.results[2].Title).toBe(results.Search[2].Title);
@@ -61,7 +64,7 @@ describe("Results Controller", function () {
     it("should set result status to error", function () {
         spyOn(omdbApi, 'search').and.callFake(function () {
             var deferred = $q.defer();
-            deferred.reject(results);
+            deferred.reject(results); // mocked data
             return deferred.promise;
         });
 
@@ -69,6 +72,7 @@ describe("Results Controller", function () {
         vm = $controller('ResultsController');
         $rootScope.$apply();
 
+        // expectations
         expect(vm.errorMessage).toBe('error');
     });
 

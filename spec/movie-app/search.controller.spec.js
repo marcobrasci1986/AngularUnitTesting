@@ -17,16 +17,18 @@ describe("Search Controller", function () {
     beforeEach(inject(function (_$controller_, _$location_) {
         $controller = _$controller_;
         $location = _$location_;
+
+        vm = $controller('SearchController');
     }));
 
     it("should redirect to the query results page for a non-empty query", function () {
-        vm = $controller('SearchController', {$location: $location}, {query: 'star wars'});
+        vm.query = 'star wars';
         vm.search();
         expect($location.url()).toBe('/results?q=star%20wars');
     });
 
     it("should not redirect for empty query", function () {
-        vm = $controller('SearchController', {$location: $location}, {query: ''});
+        vm.query = '';
         vm.search();
         expect($location.url()).toBe('');
     });
