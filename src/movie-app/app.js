@@ -1,4 +1,4 @@
-angular.module('movieApp', ['ui.bootstrap', 'ngRoute', 'app.services'])
+angular.module('movieApp', ['ui.bootstrap', 'ngRoute', 'app.services', 'movieCore'])
     .config(function ($routeProvider) {
             $routeProvider
                 .when('/results', {
