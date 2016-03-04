@@ -25,14 +25,28 @@ describe('MovieResultDirectiveTest', function () {
     ].join('');
 
     var $compile;
+    var $rootScope;
+    var $httpBackend;
 
-    beforeEach(inject(function (_$compile_) {
+    beforeEach(module('movieApp'));
+
+    beforeEach(module("templates/movie-result.html"));
+    beforeEach(inject(function ($injector) {
+        $httpBackend = $injector.get('$httpBackend');
+        $httpBackend.whenGET('../templates/movie-result.html').respond(200, '');
+    }));
+
+    beforeEach(inject(function (_$compile_, _$rootScope_) {
         $compile = _$compile_;
+        $rootScope = _$rootScope_;
     }));
 
     it('should output correct HTML', function () {
-        var html;
-        html = $compile('<movie-results result="vm.result"></movie-results>').html();
-        expect(html).toBe('<div> </div>')
+        $rootScope.result = result;
+
+        var element;
+        element = $compile('<movie-result result="result"></movie-result>')($rootScope);
+        $rootScope.$digest();
+        expect(element.html().trim()).toBe('<div class="ng-binding">Star Wars: Episode IV - A New Hope</div>')
     });
 });

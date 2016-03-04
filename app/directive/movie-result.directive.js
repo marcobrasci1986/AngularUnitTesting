@@ -16,7 +16,7 @@
            controller: MovieResultController,
            controllerAs: 'vm',
            bindToController: true,
-           templateUrl: '../templates/movie-result.html'
+           templateUrl: 'templates/movie-result.html'
        }
     }
 

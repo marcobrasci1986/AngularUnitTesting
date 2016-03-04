@@ -19,8 +19,9 @@ module.exports = function (config) {
             './node_modules/angular-route/angular-route.min.js',
             './node_modules/angular-mocks/angular-mocks.js',
             './node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
-            './src/**/*.js',
-            './spec/**/*.js'
+            './app/**/*.js',
+            './test/**/*.js',
+            './app/templates/**/*.html'
         ],
 
 
@@ -31,7 +32,11 @@ module.exports = function (config) {
         reporters: ['progress', 'coverage'],
 
         preprocessors: {
-            './src/**/*.js': 'coverage'
+            './app/**/*.js': 'coverage',
+            "./app/templates/**/*.html": ["ng-html2js"]
+        },
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'app/'
         },
 
 
