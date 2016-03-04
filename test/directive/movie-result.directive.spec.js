@@ -29,11 +29,10 @@ describe('MovieResultDirectiveTest', function () {
 
     beforeEach(module('movieApp'));
 
+    /**
+     * Load templateURL
+     */
     beforeEach(module("templates/movie-result.html"));
-    beforeEach(inject(function ($injector) {
-        $httpBackend = $injector.get('$httpBackend');
-        $httpBackend.whenGET('../templates/movie-result.html').respond(200, '');
-    }));
 
     beforeEach(inject(function (_$compile_, _$rootScope_) {
         $compile = _$compile_;

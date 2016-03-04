@@ -4,9 +4,10 @@
     </div>
     <div class="col-sm-8">
         <h3>{{ vm.result.Title}}</h3>
-        <p>Year: {{ vm.result.Year}}</p>
-        <p>Release: {{ vm.result.Released}}</p>
+        <p>Year: {{ vm.result.Year }}</p>
+        <p>Release: {{ vm.result.Released | fromNow}}</p>
         <p>Genre: {{ vm.result.Genre}}</p>
     </div>
+    <pre>{{vm.result | json}}</pre>
 
 </div>

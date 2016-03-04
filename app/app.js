@@ -6,7 +6,8 @@ var app = angular.module('movieApp', [
     'ngResource',
     'app.controllers',
     'app.services',
-    'app.directives'
+    'app.directives',
+    'app.filters'
 ]).config(function ($routeProvider) {
     $routeProvider
         .when('/results', {
@@ -25,6 +26,7 @@ var app = angular.module('movieApp', [
 angular.module("app.controllers", []);
 angular.module("app.services", []);
 angular.module("app.directives", []);
+angular.module("app.filters", []);
 
 
 
