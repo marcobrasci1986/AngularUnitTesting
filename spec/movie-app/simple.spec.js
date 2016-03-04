@@ -3,6 +3,4 @@ describe('Test simple', function () {
         expect(true).toBe(true);
         
     });
-
-
 });
