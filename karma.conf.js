@@ -7,7 +7,6 @@ module.exports = function (config) {
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
 
-
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
@@ -29,15 +28,13 @@ module.exports = function (config) {
         exclude: [],
 
 
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        reporters: ['progress', 'coverage'],
+
+        preprocessors: {
+            './src/**/*.js': 'coverage'
+        },
 
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
 
 
         // web server port

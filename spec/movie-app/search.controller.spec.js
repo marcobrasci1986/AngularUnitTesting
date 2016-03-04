@@ -15,11 +15,17 @@ describe("Search Controller", function () {
 
     beforeEach(module('movieApp'));
 
+    /**
+     * Set up DI like in the controller to mock
+     */
     beforeEach(inject(function (_$controller_, _$location_, _$timeout_) {
         $controller = _$controller_;
         $location = _$location_;
         $timeout = _$timeout_;
 
+        /**
+         * Controller to mock
+         */
         vm = $controller('SearchController');
     }));
 

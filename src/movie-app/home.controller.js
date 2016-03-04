@@ -3,7 +3,7 @@
  */
 angular.module('movieApp')
     .controller('HomeController',
-        function ($location, $interval, omdbApi, PopularMovies) {
+        function ($interval, omdbApi, PopularMovies) {
             var vm = this;
             vm.index = 0;
 
@@ -16,6 +16,8 @@ angular.module('movieApp')
                     vm.index++;
                     vm.findMovie()
                 }, 5000)
+            }, function (error) {
+                $log.error("Error");
             });
 
 
@@ -26,3 +28,4 @@ angular.module('movieApp')
                 })
             }
         });
+

@@ -44,13 +44,16 @@ describe("Results Controller", function () {
     it("should load search results", function () {
         spyOn(omdbApi, 'search').and.callFake(function () {
             var deferred = $q.defer();
-            deferred.resolve(results); // mocked data
+            deferred.resolve(results); // Resolve Promise: mocked data
             return deferred.promise;
         });
 
+        /**
+         * Mock to the return for location.search
+         */
         $location.search('q', 'star wars');
         vm = $controller('ResultsController');
-        $rootScope.$apply();
+        $rootScope.$apply(); // must be called when testing promises
 
         // expectations
         expect(vm.results[0].Title).toBe(results.Search[0].Title);
@@ -64,7 +67,7 @@ describe("Results Controller", function () {
     it("should set result status to error", function () {
         spyOn(omdbApi, 'search').and.callFake(function () {
             var deferred = $q.defer();
-            deferred.reject(results); // mocked data
+            deferred.reject(results); // REJECT promise: mocked data
             return deferred.promise;
         });
 

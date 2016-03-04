@@ -4,8 +4,8 @@
 angular.module('movieApp')
     .controller('SearchController', function ($location, $timeout) {
         var vm = this;
-
         vm.timeout;
+        vm.query
 
         vm.search = function () {
             $timeout.cancel(vm.timeout);

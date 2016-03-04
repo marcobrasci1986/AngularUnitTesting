@@ -1,20 +1,19 @@
-describe('Home Controller', function() {
+describe('Home Controller', function () {
 
     var results = [
         {
-            "Title":"Star Wars: Episode IV - A New Hope",
-            "imdbID":"tt0076759"
+            "Title": "Star Wars: Episode IV - A New Hope",
+            "imdbID": "tt0076759"
         },
         {
-            "Title":"Star Wars: Episode V - The Empire Strikes Back",
-            "imdbID":"tt0080684"
+            "Title": "Star Wars: Episode V - The Empire Strikes Back",
+            "imdbID": "tt0080684"
         },
         {
-            "Title":"Star Wars: Episode VI - Return of the Jedi",
-            "imdbID":"tt0086190"
+            "Title": "Star Wars: Episode VI - Return of the Jedi",
+            "imdbID": "tt0086190"
         }
     ];
-    var $scope;
     var $interval;
     var omdbApi;
     var $controller;
@@ -23,22 +22,28 @@ describe('Home Controller', function() {
 
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function(_$location_, _$interval_, _omdbApi_, _PopularMovies_) {
+    beforeEach(inject(function (_$interval_, _omdbApi_, _PopularMovies_) {
         $interval = _$interval_;
         omdbApi = _omdbApi_;
         PopularMovies = _PopularMovies_;
     }));
 
-    beforeEach(inject(function(_$q_, _PopularMovies_) {
-        spyOn(_PopularMovies_, 'get').and.callFake(function() {
+    /**
+     * Mock promise call to PopularMoviesService.get()
+     */
+    beforeEach(inject(function (_$q_, _PopularMovies_) {
+        spyOn(_PopularMovies_, 'get').and.callFake(function () {
             var deferred = _$q_.defer();
             deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190']);
             return deferred.promise;
         });
     }));
 
-    beforeEach(inject(function(_$controller_, _$q_) {
-        spyOn(omdbApi, 'find').and.callFake(function() {
+    /**
+     * Mock promise call to omdbApi.find(id)
+     */
+    beforeEach(inject(function (_$controller_, _$q_) {
+        spyOn(omdbApi, 'find').and.callFake(function () {
             var deferred = _$q_.defer();
             var args = omdbApi.find.calls.mostRecent().args[0];
 
@@ -56,14 +61,15 @@ describe('Home Controller', function() {
         });
     }));
 
-    beforeEach(inject(function(_$controller_, _$rootScope_, _PopularMovies_) {
+    beforeEach(inject(function (_$controller_, _$rootScope_, _PopularMovies_) {
         $controller = _$controller_;
+        PopularMovies = _PopularMovies_
 
         _$rootScope_.$apply();
     }));
 
 
-    it('should rotate movies every 5 seconds', function() {
+    it('should rotate movies every 5 seconds', function () {
         vm = $controller('HomeController');
         // should have a default starting movie
         expect(vm.result.Title).toBe(results[0].Title);
@@ -85,6 +91,11 @@ describe('Home Controller', function() {
         expect(omdbApi.find.calls.argsFor(2)).toEqual(['tt0086190']);
         expect(omdbApi.find.calls.argsFor(3)).toEqual(['tt0076759']);
 
+
+
     });
+
+
+
 
 });
