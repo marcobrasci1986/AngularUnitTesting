@@ -1,4 +1,4 @@
-describe("omdb service", function () {
+describe("MovieServiceTest", function () {
     var movieData = {
         "Search": [{
             "Title": "Star Wars: Episode IV - A New Hope",
@@ -84,8 +84,9 @@ describe("omdb service", function () {
         "Type": "movie",
         "Response": "True"
     };
+
     // Service to be mocked
-    var omdbApi = {};
+    var MovieService = {};
 
     var $httpBackend;
 
@@ -93,8 +94,8 @@ describe("omdb service", function () {
     beforeEach(module('app.services'));
 
     beforeEach(function () {
-        inject(function (_omdbApi_, _$httpBackend_) {
-            omdbApi = _omdbApi_;
+        inject(function (_MovieService_, _$httpBackend_) {
+            MovieService = _MovieService_;
             $httpBackend = _$httpBackend_;
         });
     });
@@ -108,7 +109,7 @@ describe("omdb service", function () {
             .respond(200, movieData);
 
 
-        omdbApi.search('star wars')
+        MovieService.search('star wars')
             .then(function (data) {
                 response = data;
             });
@@ -126,7 +127,7 @@ describe("omdb service", function () {
         $httpBackend.when('GET', expectedUrl)
             .respond(200, movieDataById);
 
-        omdbApi.find('tt0076759').then(function (data) {
+        MovieService.find('tt0076759').then(function (data) {
             response = data;
         });
 
@@ -141,7 +142,7 @@ describe("omdb service", function () {
         $httpBackend.when('GET', expectedUrl)
             .respond(500);
 
-        omdbApi.find('tt0076759').then(function (data) {
+        MovieService.find('tt0076759').then(function (data) {
             response = data;
         }, function () {
             response = 'Error!';

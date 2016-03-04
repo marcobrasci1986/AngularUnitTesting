@@ -1,8 +1,15 @@
 /**
  * $timeout([fn], [delay in ms], [invokeApply], [Pass]);
  */
-angular.module('movieApp')
-    .controller('SearchController', function ($location, $timeout) {
+(function () {
+    'use strict';
+
+    angular
+        .module('app.controllers')
+        .controller('SearchController', SearchController);
+
+
+    function SearchController($location, $timeout) {
         var vm = this;
         vm.timeout;
         vm.query
@@ -23,4 +30,6 @@ angular.module('movieApp')
         vm.keyDown = function () {
             $timeout.cancel(vm.timeout);
         }
-    })
+    }
+
+})();

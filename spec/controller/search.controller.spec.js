@@ -7,7 +7,7 @@
  *
  */
 
-describe("Search Controller", function () {
+describe("SearchControllerTest", function () {
     var vm;
     var $location;
     var $controller;

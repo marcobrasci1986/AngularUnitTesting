@@ -1,10 +1,10 @@
-describe("Results Controller", function () {
+describe("ResultsControllerTest", function () {
     var vm;
     var $controller;
     var $q;
     var $rootScope;
     var $location;
-    var omdbApi;
+    var MovieService;
     var results = {
         "Search":[
             {
@@ -32,17 +32,17 @@ describe("Results Controller", function () {
     beforeEach(module('app.services'));
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function (_$controller_,_$location_, _$q_, _$rootScope_,_omdbApi_) {
+    beforeEach(inject(function (_$controller_,_$location_, _$q_, _$rootScope_,_MovieService_) {
         $controller = _$controller_;
         $q = _$q_;
         $rootScope = _$rootScope_;
         $location = _$location_;
-        omdbApi = _omdbApi_;
+        MovieService = _MovieService_;
 
     }));
 
     it("should load search results", function () {
-        spyOn(omdbApi, 'search').and.callFake(function () {
+        spyOn(MovieService, 'search').and.callFake(function () {
             var deferred = $q.defer();
             deferred.resolve(results); // Resolve Promise: mocked data
             return deferred.promise;
@@ -60,12 +60,12 @@ describe("Results Controller", function () {
         expect(vm.results[1].Title).toBe(results.Search[1].Title);
         expect(vm.results[2].Title).toBe(results.Search[2].Title);
 
-        expect(omdbApi.search).toHaveBeenCalledWith('star wars')
+        expect(MovieService.search).toHaveBeenCalledWith('star wars')
 
     });
 
     it("should set result status to error", function () {
-        spyOn(omdbApi, 'search').and.callFake(function () {
+        spyOn(MovieService, 'search').and.callFake(function () {
             var deferred = $q.defer();
             deferred.reject(results); // REJECT promise: mocked data
             return deferred.promise;
