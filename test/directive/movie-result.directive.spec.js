@@ -1,3 +1,15 @@
+/**
+ * https://vimeo.com/90876119
+ *
+ * TemplateURL: use relative paths like -> templateUrl: 'templates/movie-result.html'
+ * install : html2js -> npm install karma-ng-html2js-preprocessor --save-dev
+ *
+ * Add templates folder to files in karma.conf
+ * Add preprocessors in karma.conf
+ *
+ * add ngHtml2JsPreprocessor stripPrefix
+ */
+
 describe('MovieResultDirectiveTest', function () {
 
     var result = {
@@ -7,22 +19,9 @@ describe('MovieResultDirectiveTest', function () {
         Actors: 'Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing',
         Released: '25 May 1977',
         Genre: 'Action, Adventure, Fantasy',
+        Year: 1968 ,
         Plot: 'A young boy from Tatooine sets out on an adventure with an old Jedi named Obi-Wan Kenobi as his mentor to save Princess Leia from the ruthless Darth Vader and Destroy the Death Star built by the Empire which has the power to destroy the entire galaxy.'
     };
-
-    var expectedHtml = [
-        '<div class="col-sm-4">',
-        '<img ng-src="http://localhost/image.jpg" alt="Star Wars: Episode IV - A New Hope" width="220" src="http://localhost/image.jpg">',
-        '</div>',
-        '<div class="col-sm-8">',
-        '<h3 class="ng-binding">Star Wars: Episode IV - A New Hope</h3>',
-        '<p class="ng-binding">A young boy from Tatooine sets out on an adventure with an old Jedi named Obi-Wan Kenobi as his mentor to save Princess Leia from the ruthless Darth Vader and Destroy the Death Star built by the Empire which has the power to destroy the entire galaxy.</p>',
-        '<p class="ng-binding"><strong>Director:</strong> George Lucas</p>',
-        '<p class="ng-binding"><strong>Actors:</strong> Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing</p>',
-        '<p class="ng-binding"><strong>Released:</strong> 25 May 1977</p>',
-        '<p class="ng-binding"><strong>Genre:</strong> Action, Adventure, Fantasy</p>',
-        '</div>'
-    ].join('');
 
     var $compile;
     var $rootScope;
@@ -47,6 +46,16 @@ describe('MovieResultDirectiveTest', function () {
         var element;
         element = $compile('<movie-result result="result"></movie-result>')($rootScope);
         $rootScope.$digest();
-        expect(element.html().trim()).toBe('<div class="ng-binding">Star Wars: Episode IV - A New Hope</div>')
+
+
+        console.log('Element: ' + element.html().trim());
+
+        var imageSrc = element.find('img').attr('ng-src');
+        var title = element.find('h3').html();
+
+        expect(imageSrc).toEqual('http://localhost/image.jpg');
+        expect(title).toEqual('Star Wars: Episode IV - A New Hope');
+
+
     });
 });

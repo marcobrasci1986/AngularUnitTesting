@@ -1,3 +1,12 @@
-<div>
-    <div>{{ vm.result.Title}}</div>
+<div class="row">
+    <div class="col-sm-4">
+        <img ng-src="{{vm.result.Poster}}" width="220"/>
+    </div>
+    <div class="col-sm-8">
+        <h3>{{ vm.result.Title}}</h3>
+        <p>Year: {{ vm.result.Year}}</p>
+        <p>Release: {{ vm.result.Released}}</p>
+        <p>Genre: {{ vm.result.Genre}}</p>
+    </div>
+
 </div>
