@@ -6,14 +6,15 @@
         .controller('ResultsController', ResultsController);
 
 
-    function ResultsController($location, MovieService) {
+    function ResultsController($location, MovieService, $exceptionHandler) {
         var vm = this;
 
         var query = $location.search().q;
+
         MovieService.search(query).then(function (data) {
             vm.results = data.Search;
         }, function (error) {
-            vm.errorMessage = 'error';
+           $exceptionHandler(error);
         })
 
         vm.expand = function (index, movie) {

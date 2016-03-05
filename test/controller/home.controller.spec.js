@@ -1,4 +1,4 @@
-describe('Home Controller', function () {
+describe('HomeController', function () {
 
     var results = [
         {
@@ -15,23 +15,19 @@ describe('Home Controller', function () {
         }
     ];
     var $interval;
-    var omdbApi;
-    var $controller;
-    var PopularMovies;
+    var PopularMovieService;
+    var MovieService;
     var vm;
+    const intervalDelay = 3000;
 
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function(_$interval_, _omdbApi_) {
-        $interval = _$interval_;
-        omdbApi = _omdbApi_;
-    }));
 
     /**
      * Mock promise call to PopularMoviesService.get()
      */
-    beforeEach(inject(function (_$q_, _PopularMovies_) {
-        spyOn(_PopularMovies_, 'get').and.callFake(function () {
+    beforeEach(inject(function (_$q_, _PopularMovieService_) {
+        spyOn(_PopularMovieService_, 'findPopularMovies').and.callFake(function () {
             var deferred = _$q_.defer();
             deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190']);
             return deferred.promise;
@@ -39,12 +35,12 @@ describe('Home Controller', function () {
     }));
 
     /**
-     * Mock promise call to omdbApi.find(id)
+     * Mock promise call to MovieService.find(id)
      */
-    beforeEach(inject(function (_$q_) {
-        spyOn(omdbApi, 'find').and.callFake(function () {
+    beforeEach(inject(function (_$q_, _MovieService_) {
+        spyOn(_MovieService_, 'find').and.callFake(function () {
             var deferred = _$q_.defer();
-            var args = omdbApi.find.calls.mostRecent().args[0];
+            var args = _MovieService_.find.calls.mostRecent().args[0];
 
             if (args === 'tt0076759') {
                 deferred.resolve(results[0]);
@@ -60,42 +56,37 @@ describe('Home Controller', function () {
         });
     }));
 
-    beforeEach(inject(function (_$controller_, _$interval_,_omdbApi_, _$rootScope_, _PopularMovies_) {
-        vm = _$controller_('HomeController', {
-            $interval_: _$interval_,
-            omdbApi: _omdbApi_,
-            PopularMovies: _PopularMovies_
-        });
+    beforeEach(inject(function (_$controller_, _$interval_, _$rootScope_, _PopularMovieService_, _MovieService_) {
+        vm = _$controller_('HomeController');
+        PopularMovieService = _PopularMovieService_;
+        MovieService = _MovieService_;
+        $interval = _$interval_;
 
         _$rootScope_.$apply();
     }));
 
 
+    it('should rotate movies every 5 seconds', function () {
 
-    //it('should rotate movies every 5 seconds', function () {
-    //
-    //    // should have a default starting movie
-    //    expect(vm.result.Title).toBe(results[0].Title);
-    //
-    //    // after 5 seconds, should be next movie
-    //    $interval.flush(5000);
-    //    expect(vm.result.Title).toBe(results[1].Title);
-    //
-    //    // after 5 seconds, should be next movie
-    //    $interval.flush(5000);
-    //    expect(vm.result.Title).toBe(results[2].Title);
-    //
-    //    // should go back to start
-    //    $interval.flush(5000);
-    //    expect(vm.result.Title).toBe(results[0].Title);
-    //
-    //    expect(omdbApi.find.calls.argsFor(0)).toEqual(['tt0076759']);
-    //    expect(omdbApi.find.calls.argsFor(1)).toEqual(['tt0080684']);
-    //    expect(omdbApi.find.calls.argsFor(2)).toEqual(['tt0086190']);
-    //    expect(omdbApi.find.calls.argsFor(3)).toEqual(['tt0076759']);
-    //
-    //
-    //});
+        expect(vm.results.length).toBe(3);
 
+        // should have a default movie
+        expect(vm.result.Title).toBe(results[0].Title);
+
+        $interval.flush(intervalDelay);
+        expect(vm.result.Title).toBe(results[1].Title);
+
+        $interval.flush(intervalDelay);
+        expect(vm.result.Title).toBe(results[2].Title);
+
+        $interval.flush(intervalDelay);
+        expect(vm.result.Title).toBe(results[0].Title);
+
+        expect(MovieService.find.calls.argsFor(0)).toEqual(['tt0076759']);
+        expect(MovieService.find.calls.argsFor(1)).toEqual(['tt0080684']);
+        expect(MovieService.find.calls.argsFor(2)).toEqual(['tt0086190']);
+        expect(MovieService.find.calls.argsFor(3)).toEqual(['tt0076759']);
+
+    });
 
 });

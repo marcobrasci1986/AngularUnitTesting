@@ -12,6 +12,10 @@
 
 describe('MovieResultDirectiveTest', function () {
 
+    /**
+     * Mock data
+     *
+     */
     var result = {
         Poster: 'http://localhost/image.jpg',
         Title: 'Star Wars: Episode IV - A New Hope',
@@ -25,7 +29,6 @@ describe('MovieResultDirectiveTest', function () {
 
     var $compile;
     var $rootScope;
-    var $httpBackend;
 
     beforeEach(module('movieApp'));
 
@@ -45,7 +48,6 @@ describe('MovieResultDirectiveTest', function () {
         var element;
         element = $compile('<movie-result result="result"></movie-result>')($rootScope);
         $rootScope.$digest();
-
 
         console.log('Element: ' + element.html().trim());
 
