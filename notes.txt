@@ -25,7 +25,7 @@ Instructions: https://github.com/karma-runner/karma-coverage
 
 Karma: a productive testing environment to developers.
 Jasmine: javascript testing framework
-Mocham: javascript testing framework
+Mocha: javascript testing framework
 
 
 
