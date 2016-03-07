@@ -27,7 +27,7 @@
         };
 
 
-        PopularMovieService.findPopularMovies().then(function (data) {
+        PopularMovieService.query(function (data) {
             vm.results = data;
             vm.findMovie(vm.results[0]);
 

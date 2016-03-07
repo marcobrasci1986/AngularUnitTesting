@@ -28,19 +28,20 @@ var app = angular.module('movieApp', [
     var data = ['tt0076759', 'tt0080684', 'tt0086190'];
     var headers = {
         headers: {'Content-Type': 'application/json'}
-    }
+    };
 
+    // when popular is in Request return this mocked data
     $httpBackend.whenGET(function (s) {
         return (s.indexOf('popular') !== -1);
-    }).respond(20, data, headers);
+    }).respond(200, data, headers);
 
 // allow all other real requests to passThrough as usual
     $httpBackend.whenGET(/.*/).passThrough();
 });
 
-
+// define all modules
 angular.module("app.controllers", []);
-angular.module("app.services", []);
+angular.module("app.services", ['ngResource']);
 angular.module("app.directives", []);
 angular.module("app.filters", []);
 

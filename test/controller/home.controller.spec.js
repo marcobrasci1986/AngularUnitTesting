@@ -28,10 +28,8 @@ describe('HomeController', function () {
      * Mock promise call to PopularMoviesService.get()
      */
     beforeEach(inject(function (_$q_, _PopularMovieService_) {
-        spyOn(_PopularMovieService_, 'findPopularMovies').and.callFake(function () {
-            var deferred = _$q_.defer();
-            deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190']);
-            return deferred.promise;
+        spyOn(_PopularMovieService_, 'query').and.callFake(function (cb) {
+            cb(['tt0076759', 'tt0080684', 'tt0086190']);
         });
     }));
 

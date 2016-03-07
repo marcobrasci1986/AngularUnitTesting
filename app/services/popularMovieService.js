@@ -5,23 +5,31 @@
         .module('app.services')
         .factory('PopularMovieService', PopularMovieService);
 
-    function PopularMovieService($q, $http) {
-        var service = {};
-        var results = ['tt0076759', 'tt0080684', 'tt0086190'];
-
-
-        function httpPromise() {
-            var deferred = $q.defer();
-            deferred.resolve(results);
-            return deferred.promise;
-        }
-
-
-        service.findPopularMovies = function () {
-            return httpPromise();
-        };
-
-        return service;
+    function PopularMovieService($resource) {
+        var token = 'teddybear'; // TBC
+        return $resource('popular/:movieId', {movieId: '@id'}, {
+            update: {
+                method: 'PUT',
+                headers: {'authToken': token}
+            },
+            get: {
+                method: 'GET',
+                headers: {'authToken': token}
+            },
+            query: {
+                method: 'GET',
+                headers: {'authToken': token},
+                isArray: true
+            },
+            save: {
+                method: 'POST',
+                headers: {'authToken': token}
+            },
+            remove: {
+                method: 'DELETE',
+                headers: {'authToken': token}
+            }
+        });
     }
 
 })();
