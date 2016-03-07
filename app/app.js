@@ -7,7 +7,8 @@ var app = angular.module('movieApp', [
     'app.controllers',
     'app.services',
     'app.directives',
-    'app.filters'
+    'app.filters',
+    'ngMockE2E'
 ]).config(function ($routeProvider) {
     $routeProvider
         .when('/results', {
@@ -23,7 +24,20 @@ var app = angular.module('movieApp', [
         });
 }).config(function ($logProvider) {
     $logProvider.debugEnabled(true);
+}).run(function ($httpBackend) {
+    var data = ['tt0076759', 'tt0080684', 'tt0086190'];
+    var headers = {
+        headers: {'Content-Type': 'application/json'}
+    }
+
+    $httpBackend.whenGET(function (s) {
+        return (s.indexOf('popular') !== -1);
+    }).respond(20, data, headers);
+
+// allow all other real requests to passThrough as usual
+    $httpBackend.whenGET(/.*/).passThrough();
 });
+
 
 angular.module("app.controllers", []);
 angular.module("app.services", []);
