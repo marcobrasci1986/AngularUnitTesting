@@ -21,13 +21,17 @@ describe('HomeController', function () {
     var $log;
     const intervalDelay = 3000;
 
-    beforeEach(module('movieApp'));
+    /**
+     * Add a reference to ngMock
+     * The ngMock module provides a mechanism to inject and mock services for unit tests.
+     */
+    beforeEach(angular.mock.module('movieApp'));
 
 
     /**
      * Mock promise call to PopularMoviesService.get()
      */
-    beforeEach(inject(function (_$q_, _PopularMovieService_) {
+    beforeEach(angular.mock.inject(function (_$q_, _PopularMovieService_) {
         spyOn(_PopularMovieService_, 'query').and.callFake(function (cb) {
             cb(['tt0076759', 'tt0080684', 'tt0086190']);
         });
@@ -36,7 +40,7 @@ describe('HomeController', function () {
     /**
      * Mock promise call to MovieService.find(id)
      */
-    beforeEach(inject(function (_$q_, _MovieService_) {
+    beforeEach(angular.mock.inject(function (_$q_, _MovieService_) {
         spyOn(_MovieService_, 'find').and.callFake(function () {
             var deferred = _$q_.defer();
             var args = _MovieService_.find.calls.mostRecent().args[0];
@@ -55,7 +59,12 @@ describe('HomeController', function () {
         });
     }));
 
-    beforeEach(inject(function (_$controller_, _$interval_, _$rootScope_, _PopularMovieService_, _MovieService_, _$log_) {
+    /**
+     * Create reference to controller.
+     * Mock custom services: PopularMovieService and MovieService
+     * Mock angular services: $interval, $log
+     */
+    beforeEach(angular.mock.inject(function (_$controller_, _$interval_, _$rootScope_, _PopularMovieService_, _MovieService_, _$log_) {
         vm = _$controller_('HomeController');
         PopularMovieService = _PopularMovieService_;
         MovieService = _MovieService_;
@@ -67,7 +76,6 @@ describe('HomeController', function () {
 
 
     it('should rotate movies every 5 seconds', function () {
-
         expect(vm.results.length).toBe(3);
 
         // should have a default movie
