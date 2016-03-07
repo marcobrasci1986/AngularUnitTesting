@@ -6,6 +6,7 @@ describe("ResultsControllerTest", function () {
     var $location;
     var MovieService;
     var $exceptionHandler;
+    var $log;
     var results = {
         "Search": [
             {
@@ -38,14 +39,18 @@ describe("ResultsControllerTest", function () {
         $exceptionHandlerProvider.mode('log');
     }));
 
-    beforeEach(inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _MovieService_, _$exceptionHandler_) {
+    beforeEach(module(function ($logProvider) {
+        $logProvider.debugEnabled(true); // overwrites the one configured in app.js
+    }));
+
+    beforeEach(inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _MovieService_, _$exceptionHandler_, _$log_) {
         $controller = _$controller_;
         $q = _$q_;
         $rootScope = _$rootScope_;
         $location = _$location_;
         MovieService = _MovieService_;
         $exceptionHandler = _$exceptionHandler_;
-
+        $log = _$log_;
     }));
 
     it("should load search results", function () {
@@ -67,7 +72,10 @@ describe("ResultsControllerTest", function () {
         expect(vm.results[1].Title).toBe(results.Search[1].Title);
         expect(vm.results[2].Title).toBe(results.Search[2].Title);
 
-        expect(MovieService.search).toHaveBeenCalledWith('star wars')
+        expect(MovieService.search).toHaveBeenCalledWith('star wars');
+
+        expect($log.debug.logs[0]).toEqual(['Controller loaded with query: %s', 'star wars']);
+        expect($log.debug.logs[1]).toEqual(['Data returned for query: ', 'star wars', results]);
 
     });
 

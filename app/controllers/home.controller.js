@@ -6,17 +6,23 @@
         .controller('HomeController', HomeController);
 
 
-    function HomeController($interval, MovieService, PopularMovieService) {
+    function HomeController($interval, MovieService, PopularMovieService, $log) {
         var vm = this;
         vm.results = [];
         vm.index = 0;
+
+        $log.log('log level');
+        $log.info('info level');
+        $log.error('error level');
+        $log.warn('warn level');
+        $log.debug('debug level');
 
         vm.findMovie = function (imdbID) {
             console.log('imdbID %s', imdbID);
             MovieService.find(imdbID).then(function (data) {
                 vm.result = data;
             }, function (error) {
-                console.log('Error');
+                $log.error('Error')
             })
         };
 
@@ -30,7 +36,7 @@
                 vm.findMovie(vm.results[vm.index % vm.results.length]);
             }, 3000)
         }, function (error) {
-            console.log('Error');
+            $log.error('Error');
         });
     }
 

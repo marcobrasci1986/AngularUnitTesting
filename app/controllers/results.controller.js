@@ -6,15 +6,17 @@
         .controller('ResultsController', ResultsController);
 
 
-    function ResultsController($location, MovieService, $exceptionHandler) {
+    function ResultsController($location, MovieService, $exceptionHandler, $log) {
         var vm = this;
 
         var query = $location.search().q;
 
+        $log.debug('Controller loaded with query: %s', query);
         MovieService.search(query).then(function (data) {
+            $log.debug('Data returned for query: ', query, data);
             vm.results = data.Search;
         }, function (error) {
-           $exceptionHandler(error);
+            $exceptionHandler(error);
         })
 
         vm.expand = function (index, movie) {

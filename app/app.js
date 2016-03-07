@@ -21,6 +21,8 @@ var app = angular.module('movieApp', [
         .otherwise({
             redirectTo: '/home'
         });
+}).config(function ($logProvider) {
+    $logProvider.debugEnabled(true);
 });
 
 angular.module("app.controllers", []);

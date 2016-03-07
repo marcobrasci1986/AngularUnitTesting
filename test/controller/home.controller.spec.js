@@ -18,6 +18,7 @@ describe('HomeController', function () {
     var PopularMovieService;
     var MovieService;
     var vm;
+    var $log;
     const intervalDelay = 3000;
 
     beforeEach(module('movieApp'));
@@ -56,11 +57,12 @@ describe('HomeController', function () {
         });
     }));
 
-    beforeEach(inject(function (_$controller_, _$interval_, _$rootScope_, _PopularMovieService_, _MovieService_) {
+    beforeEach(inject(function (_$controller_, _$interval_, _$rootScope_, _PopularMovieService_, _MovieService_, _$log_) {
         vm = _$controller_('HomeController');
         PopularMovieService = _PopularMovieService_;
         MovieService = _MovieService_;
         $interval = _$interval_;
+        $log = _$log_;
 
         _$rootScope_.$apply();
     }));
@@ -86,6 +88,16 @@ describe('HomeController', function () {
         expect(MovieService.find.calls.argsFor(1)).toEqual(['tt0080684']);
         expect(MovieService.find.calls.argsFor(2)).toEqual(['tt0086190']);
         expect(MovieService.find.calls.argsFor(3)).toEqual(['tt0076759']);
+
+
+        //$log.reset() // clear all logs
+        //$log.assertEmpty() // checks that all log levels are empty
+        expect($log.log.logs[0]).toEqual(['log level']);
+        console.log(angular.mock.dump($log.log.logs));
+        console.log(angular.mock.dump($log.info.logs));
+        console.log(angular.mock.dump($log.warn.logs));
+        console.log(angular.mock.dump($log.error.logs));
+        console.log(angular.mock.dump($log.debug.logs));
 
     });
 
