@@ -1,9 +1,9 @@
 describe("MovieServiceTest", function () {
 
-    var SimpleService = {};
-    var EmployeeService = {};
+    var SimpleService;
+    var EmployeeService;
 
-    var mockEmployeeService = {};
+    var mockEmployeeService;
 
     var employeeData = [{
         "id": 1,
@@ -40,24 +40,20 @@ describe("MovieServiceTest", function () {
 
     beforeEach(module('app.services'));
 
-
     /**
      * Define your mocks first, so that the mocks can be used for DI in your service that you want to test
      */
     beforeEach(function () {
         mockEmployeeService = {
-            list: function () {
-                return employeeData;
-            }
+            list: {}
         };
+
         /**
          * When any service asks for an EmployeeService, use this one
          */
         module(function ($provide) {
             $provide.value('EmployeeService', mockEmployeeService);
         });
-
-
     });
 
     /**
@@ -71,23 +67,12 @@ describe("MovieServiceTest", function () {
 
 
     it("testSum", function () {
-
         var result = SimpleService.sum(5, 3);
-
         expect(result).toEqual(8);
     });
 
+
     it("testEmployeeList", function () {
-        spyOn(mockEmployeeService, 'list').and.callThrough();
-        var employees = SimpleService.findEmployees();
-
-        expect(employees).toEqual(employeeData);
-
-        // verify behaviour
-        expect(mockEmployeeService.list).toHaveBeenCalled();
-    });
-
-    it("testEmployeeList2", function () {
         // Mockito.when(mockEmployeeService.list()).thenReturn(employeeData);
         spyOn(mockEmployeeService, 'list').and.returnValue(employeeData);
         var employees = SimpleService.findEmployees();
