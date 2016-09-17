@@ -70,10 +70,33 @@ describe('EmployeeController', function () {
         expect(vm.employees).toBe(employeeData);
     });
 
+    /**
+     * Force return value from a mocked service
+     */
     it("it should call SimpleService sum", function () {
-        // TODO returnValue only when 5,5 are passed in as params
+        // force return value
         spyOn(mockSimpleService, 'sum').and.returnValue(3);
+
         var result = vm.makeTheSum(5,5);
+
+
         expect(result).toBe(3);
+        /**
+         * Verify the exact params were used in the call to the mock
+         */
+        expect(mockSimpleService.sum).toHaveBeenCalledWith(5,5);
+    });
+
+    /**
+     * CallFake example
+     */
+    it("it should call SimpleService sum2", function () {
+        spyOn(mockSimpleService, 'sum').and.callFake(function(a,b){
+            return a + b;
+        });
+        var result = vm.makeTheSum(5,5);
+        expect(result).toBe(10);
+
+        expect(mockSimpleService.sum).toHaveBeenCalledWith(5,5);
     });
 });

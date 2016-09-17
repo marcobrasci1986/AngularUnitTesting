@@ -3,8 +3,8 @@ describe('FromNowFilterTest', function () {
 
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function (_$filter_) {
-        fromNow = _$filter_('fromNow'); // get filter object to test -> string is exact name !!!
+    beforeEach(inject(function ($filter) {
+        fromNow = $filter('fromNow'); // get filter object to test -> string is exact name !!!
     }));
 
     it('should throw error for undefined', function () {
