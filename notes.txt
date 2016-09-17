@@ -27,5 +27,9 @@ Karma: a productive testing environment to developers.
 Jasmine: javascript testing framework
 Mocha: javascript testing framework
 
+---------------------
+
+https://www.sitepoint.com/unit-testing-angularjs-services-controllers-providers/
+
 
 

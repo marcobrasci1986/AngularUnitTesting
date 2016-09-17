@@ -1,10 +1,7 @@
-/*
 'use strict';
 
 describe('EmployeeController', function () {
-    var employeeController;
-    beforeEach(module('app.controllers'));
-
+    var vm;
     var employeeData = [{
         "id": 1,
         "first_name": "Kathleen",
@@ -37,34 +34,34 @@ describe('EmployeeController', function () {
         "gender": "Female"
     }];
 
+    beforeEach(module('app.controllers'));
+    beforeEach(module('app.services'));
 
-
-    var mockEmployeeService = {
-        list:employeeData
-    };
+    
+    var mockEmployeeService;
 
     beforeEach(function () {
-        /!**
-         * When any service asks for an EmployeeService, use this one
-         *!/
+        mockEmployeeService = {
+            list: employeeData
+        };
+
         module(function ($provide) {
             $provide.value('EmployeeService', mockEmployeeService);
         });
 
     });
 
+    /**
+     * Find the controller you want to test
+     */
     beforeEach(function () {
-        inject(function (_EmployeeController_) {
-            employeeController = _EmployeeController_;
+        inject(function ($controller) {
+            vm = $controller('EmployeeController');
         });
     });
 
     it('should set vm.employees', function () {
-        var mockEmployees = {};
-
-        employeeController.init()
-
-        expect(vm.employees).toBe(mockEmployees);
+        expect(vm.employees).toBe(employeeData);
 
     });
-});*/
+});

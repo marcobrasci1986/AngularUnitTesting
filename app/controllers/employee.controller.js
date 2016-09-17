@@ -11,10 +11,10 @@
 
         init();
 
-
         function init() {
-            vm.employees = EmployeeService.list();
-        }
+            vm.employees = EmployeeService.list;
+        };
+
 
 
     }
