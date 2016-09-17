@@ -67,11 +67,10 @@ describe('EmployeeController', function () {
     });
 
     it('should set vm.employees', function () {
-        spyOn(mockEmployeeService, 'list').and.returnValue("test");
         expect(vm.employees).toBe(employeeData);
     });
 
-    it("it sould call SimpleService sum", function () {
+    it("it should call SimpleService sum", function () {
         // TODO returnValue only when 5,5 are passed in as params
         spyOn(mockSimpleService, 'sum').and.returnValue(3);
         var result = vm.makeTheSum(5,5);
