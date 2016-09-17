@@ -35,18 +35,24 @@ describe('EmployeeController', function () {
     }];
 
     beforeEach(module('app.controllers'));
-    beforeEach(module('app.services'));
 
-    
     var mockEmployeeService;
+    var mockSimpleService;
 
     beforeEach(function () {
         mockEmployeeService = {
             list: employeeData
         };
 
+        mockSimpleService = {
+            sum: function (a, b) {
+                return a*b;
+            }
+        };
+
         module(function ($provide) {
             $provide.value('EmployeeService', mockEmployeeService);
+            $provide.value('SimpleService', mockSimpleService);
         });
 
     });
@@ -61,7 +67,14 @@ describe('EmployeeController', function () {
     });
 
     it('should set vm.employees', function () {
+        spyOn(mockEmployeeService, 'list').and.returnValue("test");
         expect(vm.employees).toBe(employeeData);
+    });
 
+    it("it sould call SimpleService sum", function () {
+        // TODO returnValue only when 5,5 are passed in as params
+        spyOn(mockSimpleService, 'sum').and.returnValue(3);
+        var result = vm.makeTheSum(5,5);
+        expect(result).toBe(3);
     });
 });
