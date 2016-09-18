@@ -1,2 +1,5 @@
 .idea
 angularjs-ngmock-unit-testing
+node_modules
+coverage/
+test/lib/
