@@ -38,6 +38,9 @@ describe("MovieServiceTest", function () {
     }];
 
 
+    /**
+     * Invoke the module that has this service inside of it
+     */
     beforeEach(module('app.services'));
 
     /**
@@ -59,19 +62,23 @@ describe("MovieServiceTest", function () {
     /**
      * Init service you want to test
      */
-    beforeEach(function () {
+    beforeEach(
         inject(function (_SimpleService_) {
             SimpleService = _SimpleService_;
-        });
-    });
+        })
+    );
 
-
+    /**
+     * Simplest test no dependencies
+     */
     it("testSum", function () {
         var result = SimpleService.sum(5, 3);
         expect(result).toEqual(8);
     });
 
-
+    /**
+     * Test with dependencies
+     */
     it("testEmployeeList", function () {
         // Mockito.when(mockEmployeeService.list()).thenReturn(employeeData);
         spyOn(mockEmployeeService, 'list').and.returnValue(employeeData);

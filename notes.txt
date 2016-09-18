@@ -30,6 +30,12 @@ Mocha: javascript testing framework
 ---------------------
 
 https://www.sitepoint.com/unit-testing-angularjs-services-controllers-providers/
+https://daveceddia.com/jasmine-2-spy-cheat-sheet/
+
+Testing Ajax -> $httpBackend
+
+$httpBackend.flush()
+Verify GET, POST and params
 
 
 

@@ -46,7 +46,7 @@ describe('EmployeeController', function () {
 
         mockSimpleService = {
             sum: function (a, b) {
-                return a*b;
+                return a * b;
             }
         };
 
@@ -60,11 +60,11 @@ describe('EmployeeController', function () {
     /**
      * Find the controller you want to test
      */
-    beforeEach(function () {
+    beforeEach(
         inject(function ($controller) {
             vm = $controller('EmployeeController');
-        });
-    });
+        })
+    );
 
     it('should set vm.employees', function () {
         expect(vm.employees).toBe(employeeData);
@@ -77,26 +77,26 @@ describe('EmployeeController', function () {
         // force return value
         spyOn(mockSimpleService, 'sum').and.returnValue(3);
 
-        var result = vm.makeTheSum(5,5);
+        var result = vm.makeTheSum(5, 5);
 
-
+        // Assert
         expect(result).toBe(3);
         /**
          * Verify the exact params were used in the call to the mock
          */
-        expect(mockSimpleService.sum).toHaveBeenCalledWith(5,5);
+        expect(mockSimpleService.sum).toHaveBeenCalledWith(5, 5);
     });
 
     /**
      * CallFake example
      */
     it("it should call SimpleService sum2", function () {
-        spyOn(mockSimpleService, 'sum').and.callFake(function(a,b){
+        spyOn(mockSimpleService, 'sum').and.callFake(function (a, b) {
             return a + b;
         });
-        var result = vm.makeTheSum(5,5);
+        var result = vm.makeTheSum(5, 5);
         expect(result).toBe(10);
 
-        expect(mockSimpleService.sum).toHaveBeenCalledWith(5,5);
+        expect(mockSimpleService.sum).toHaveBeenCalledWith(5, 5);
     });
 });
